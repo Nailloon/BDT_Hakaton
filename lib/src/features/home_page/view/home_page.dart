@@ -1,6 +1,7 @@
 import 'package:bdt_hakaton/src/common/mock_data/home_categories.dart';
 import 'package:bdt_hakaton/src/features/home_page/view/components/category_chip.dart';
 import 'package:bdt_hakaton/src/features/home_page/view/components/category_header.dart';
+import 'package:bdt_hakaton/src/features/home_page/view/components/choosen_fragment.dart';
 import 'package:bdt_hakaton/src/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -56,19 +57,24 @@ class _MyHomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: const Size.fromHeight((60)),
+            preferredSize: const Size.fromHeight(60),
             child: ColoredBox(
               color: AppColors.lightGrey,
               child: SizedBox(
                 width: double.infinity,
                 child: ScrollablePositionedList.builder(
-                    itemCount: categories.length,
-                    scrollDirection: Axis.horizontal,
-                    initialAlignment: 0,
-                    itemBuilder: (context, index) {
-                      final category = categories[index];
-                      return Padding(
-                        padding: EdgeInsets.only(right:0),
+                  itemCount: categories.length,
+                  scrollDirection: Axis.horizontal,
+                  initialAlignment: 0,
+                  itemBuilder: (context, index) {
+                    final category = categories[index];
+                    final itemWidth =
+                        MediaQuery.of(context).size.width / categories.length;
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          right: index == categories.length - 1 ? 0 : 16),
+                      child: SizedBox(
+                        width: itemWidth,
                         child: CategoryChip(
                           text: category,
                           isSelected: index == current,
@@ -77,8 +83,10 @@ class _MyHomePageState extends State<HomePage> {
                             menuScrollToCategory(index);
                           },
                         ),
-                      );
-                    }),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -95,13 +103,7 @@ class _MyHomePageState extends State<HomePage> {
                     key: _categoryKeys[category],
                     categoryName: category,
                   ),
-                  IndexedStack(
-                    index: index,
-                    children: [Text('data'), Text('scdc')],
-                  ),
-                  SizedBox(
-                    height: 1000,
-                  )
+                  ChoosenFragment(index: index,),
                 ],
               );
             },

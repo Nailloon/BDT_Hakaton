@@ -45,10 +45,7 @@ class _CategoryChipState extends State<CategoryChip> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      labelStyle: TextStyle(
-        color: _isSelected ? AppColors.white : AppColors.black,
-        fontWeight: _isSelected ? FontWeight.normal : FontWeight.bold,
-      ),
+      labelStyle: _isSelected ? Theme.of(context).textTheme.bodySmall : Theme.of(context).textTheme.bodyMedium,
       onPressed: widget.onSelected,
     );
   }
