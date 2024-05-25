@@ -28,12 +28,12 @@ class _MyHomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _itemListener.itemPositions.addListener(() {
-      final firstVisibleIndex = _itemListener.itemPositions.value.isNotEmpty
-          ? _itemListener.itemPositions.value.first.index
+      final lastVisibleIndex = _itemListener.itemPositions.value.isNotEmpty
+          ? _itemListener.itemPositions.value.last.index
           : current;
 
-      if (firstVisibleIndex != current && !inProgress) {
-        setCurrent(firstVisibleIndex);
+      if (lastVisibleIndex != current && !inProgress) {
+        setCurrent(lastVisibleIndex);
       }
     });
   }
@@ -96,14 +96,23 @@ class _MyHomePageState extends State<HomePage> {
             itemBuilder: (context, index) {
               final category = categories[index];
               return Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CategoryHeader(
                     key: _categoryKeys[category],
                     categoryName: category,
                   ),
-                  ChoosenFragment(index: index,),
+                  ChoosenFragment(
+                    index: index,
+                  ),
+                  const SizedBox(height: 50.0),
+                  const Divider(
+                    indent: 32.0,
+                    endIndent: 32.0,
+                    color: AppColors.lightGrey,
+                  ),
+                  const SizedBox(height: 50.0)
                 ],
               );
             },

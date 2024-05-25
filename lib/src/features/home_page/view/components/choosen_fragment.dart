@@ -11,7 +11,11 @@ class ChoosenFragment extends StatelessWidget {
   Widget build(BuildContext context) {
     return IndexedStack(
       index: index,
-      children: [const ProjectFragment(), IndexingFragment(), const RequestFragment()],
+      children: [
+        const ProjectFragment(),
+        IndexingFragment(),
+        const RequestFragment()
+      ],
     );
   }
 }

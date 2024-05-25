@@ -31,6 +31,12 @@ final theme = ThemeData(
     bodySmall: TextStyle(
         fontFamily: 'Cuyabra',
         fontSize: 18,
+        fontWeight: FontWeight.bold,
+        letterSpacing: 0.0,
+        color: AppColors.white),
+    displaySmall: TextStyle(
+        fontFamily: 'Cuyabra',
+        fontSize: 18,
         fontWeight: FontWeight.w400,
         letterSpacing: 0.0,
         color: AppColors.white),

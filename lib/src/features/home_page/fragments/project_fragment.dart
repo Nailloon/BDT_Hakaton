@@ -9,10 +9,10 @@ class ProjectFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 600,
+      height: 800,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
               width: MediaQuery.of(context).size.width / 2,
@@ -24,11 +24,11 @@ class ProjectFragment extends StatelessWidget {
               children: [
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
+                    padding: const EdgeInsets.only(right: 16.0, left: 16.0),
                     child: Text(
                       'Не уверены, индексирует ли Google ваш сайт? Тогда "Индекс-чекер" станет вашим незаменимым помощником. Наш сервис быстро проверит индексацию вашего сайта Google и предоставит подробную информацию. Анализируя результаты, вы сможете выявить проблемы с индексацией и получить ценные советы по их устранению. Используйте "Индекс-чекер", чтобы улучшить видимость вашего сайта в результатах поиска и повысить его посещаемость. Индексация Google: проверка и рекомендации всего за несколько кликов!',
                       style: Theme.of(context).textTheme.bodyLarge,
-                       textAlign: TextAlign.justify,
+                      textAlign: TextAlign.justify,
                     ),
                   ),
                 ),
