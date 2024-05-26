@@ -9,7 +9,7 @@ class UrlsDataSource implements IURLsDataSource {
   final String statusUrl = "/status/";
 
   @override
-  Future<List<UrlStatDTO>?> getStatsForUrls(List<String> urlsData) async {
+  Future<List<UrlStatDTO>?> getStatsForUrls(List<String> urlsData, bool isNeedPlot) async {
     try {
       var response = await dio.post(fastAPIurl, data: urlsData, options: Options(
     headers: {'Content-Type': 'application/json'},

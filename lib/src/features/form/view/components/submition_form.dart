@@ -13,6 +13,7 @@ class SumbitionForm extends StatefulWidget {
 class _SumbitionFormState extends State<SumbitionForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController textEditingController = TextEditingController();
+  bool isSubscribed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,6 @@ class _SumbitionFormState extends State<SumbitionForm> {
                 hintText: "http or https...",
                 border: const OutlineInputBorder(
                     borderSide: BorderSide(color: AppColors.lightGrey)),
-
               ),
               validator: (value) {
                 if (value!.isEmpty) {
@@ -53,6 +53,18 @@ class _SumbitionFormState extends State<SumbitionForm> {
                 return null;
               },
             ),
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Checkbox(
+                  value: isSubscribed,
+                  onChanged: (val) => setState(() => isSubscribed = val!),
+                  activeColor: AppColors.purple, 
+                ),
+                Text("Нужен график", style: Theme.of(context).textTheme.bodyLarge,)
+              ],
+            ),
             const SizedBox(
               height: 40,
             ),
@@ -61,7 +73,8 @@ class _SumbitionFormState extends State<SumbitionForm> {
                   ? () {
                       _formKey.currentState?.save();
                       final String url = textEditingController.text;
-                      context.read<LoadingBloc>().add(LoadURLsEvent([url]));
+                      context.read<LoadingBloc>().add(
+                          LoadURLsEvent(urls: [url], isNeedPlot: isSubscribed));
                       {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Processing Data')),
@@ -79,7 +92,8 @@ class _SumbitionFormState extends State<SumbitionForm> {
               child: Text(
                 'Отправить на проверку',
                 style: _formKey.currentState?.validate() == true
-                    ? Theme.of(context).textTheme.bodyLarge : Theme.of(context).textTheme.displayMedium,
+                    ? Theme.of(context).textTheme.bodyLarge
+                    : Theme.of(context).textTheme.displayMedium,
               ),
             ),
           ],

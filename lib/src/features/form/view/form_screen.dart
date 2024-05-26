@@ -1,6 +1,7 @@
 import 'package:bdt_hakaton/src/features/form/bloc/loading_bloc.dart';
 import 'package:bdt_hakaton/src/features/form/view/components/submition_form.dart';
 import 'package:bdt_hakaton/src/features/form/view/loading_screen.dart';
+import 'package:bdt_hakaton/src/features/stats/view/stats_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,9 +23,11 @@ class FormScreen extends StatelessWidget {
                           if (state is LoadingInitial)
                           return SumbitionForm();
                           if (state is LoadingCompleted)
-                          return Placeholder();
+                          return StatsScreen(stats: state.urlModels, isNeedPlots: state.isNeedPlot);
+                          if (state is LoadingInProgress)
+                          return LoadingScreen();
                           if (state is LoadingFailure)
-                          return Center(child: LoadingScreen());
+                          return Center(child: Column(children:[ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text("Что-то пошло не так"))]));
                           else{
                             return Container();
                           }

@@ -19,12 +19,12 @@ class PurpleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-
         return SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Card(
             color: AppColors.purple,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0)),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
@@ -43,10 +43,9 @@ class PurpleCard extends StatelessWidget {
                   const SizedBox(height: 30.0),
                   Expanded(
                     child: Text(
-                        text,
-                        style: Theme.of(context).textTheme.displaySmall,
-                        
-                      ),
+                      text,
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
                   ),
                   Expanded(
                     child: ElevatedButton(
@@ -55,12 +54,15 @@ class PurpleCard extends StatelessWidget {
                         minimumSize: const MaterialStatePropertyAll<Size>(
                           Size.fromHeight(32.0),
                         ),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(AppColors.brightOrange),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            AppColors.brightOrange),
                         foregroundColor:
                             MaterialStateProperty.all<Color>(AppColors.black),
                       ),
-                      child: Text(buttonText, style: Theme.of(context).textTheme.bodyLarge,),
+                      child: Text(
+                        buttonText,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
                     ),
                   )
                 ],

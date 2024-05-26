@@ -8,7 +8,8 @@ final class LoadEvent extends LoadingEvent {}
 
 final class LoadURLsEvent extends LoadingEvent {
   final List<String> urls;
-  const LoadURLsEvent(this.urls);
+  final bool isNeedPlot;
+  const LoadURLsEvent({required this.urls,required this.isNeedPlot});
 }
 
 final class ClearURLsEvent extends LoadingEvent{

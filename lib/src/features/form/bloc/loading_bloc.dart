@@ -11,17 +11,22 @@ part 'loading_state.dart';
 class LoadingBloc extends Bloc<LoadingEvent, LoadingState> {
   List<UrlStatModel> urlsForApp;
   UrlsDataSource networkDataSource = UrlsDataSource();
-  LoadingBloc({required this.urlsForApp}) : super(LoadingInitial([])) {
+  LoadingBloc({required this.urlsForApp}) : super(LoadingInitial([], false)) {
     on<LoadURLsEvent>(_handleLoadUrlsEvent);
   }
-  void _handleLoadUrlsEvent(LoadURLsEvent event, Emitter<LoadingState> emit) async{
-      try {
-  List<UrlStatDTO> urlsForAppDTO = await networkDataSource.getStatsForUrls(event.urls) ?? [];
-  urlsForApp = urlsForAppDTO.map((e)=>e.toModel()).toList();
-  emit(LoadingCompleted(urlsForApp));
-} on Exception catch (e) {
-  debugPrint(e.toString());
-  emit(LoadingFailure(urlsForApp, exception: e));
-}
+  void _handleLoadUrlsEvent(
+      LoadURLsEvent event, Emitter<LoadingState> emit) async {
+    try {
+      emit(LoadingInProgress(urlsForApp, event.isNeedPlot));
+      List<UrlStatDTO> urlsForAppDTO = await networkDataSource.getStatsForUrls(
+              event.urls, event.isNeedPlot) ??
+          [];
+      urlsForApp = urlsForAppDTO.map((e) => e.toModel()).toList();
+      debugPrint("urls:"+ urlsForApp.toString());
+      emit(LoadingCompleted(urlsForApp, event.isNeedPlot));
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+      emit(LoadingFailure(urlsForApp, event.isNeedPlot, exception: e));
+    }
   }
 }
