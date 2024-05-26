@@ -23,7 +23,7 @@ class FormScreen extends StatelessWidget {
                           if (state is LoadingInitial)
                           return SumbitionForm();
                           if (state is LoadingCompleted)
-                          return StatsScreen(stats: state.urlModels, isNeedPlots: state.isNeedPlot);
+                          return StatsScreen(stats: state.urlModels, isNeedPlots: state.isNeedPlot, imageBase64String: state.image,);
                           if (state is LoadingInProgress)
                           return LoadingScreen();
                           if (state is LoadingFailure)

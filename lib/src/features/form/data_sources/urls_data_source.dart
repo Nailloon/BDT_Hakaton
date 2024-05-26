@@ -13,7 +13,7 @@ class UrlsDataSource implements IURLsDataSource {
   final String statusUrl = "/status/";
 
   @override
-  Future<List<UrlStatDTO>?> getStatsForUrls(
+  Future<Map<List<UrlStatDTO>,String?>?> getStatsForUrls(
       List<String> urlsData, bool isNeedPlot) async {
     try {
       var response = await dio.post(
@@ -24,7 +24,6 @@ class UrlsDataSource implements IURLsDataSource {
         ),
       );
       print("good");
-      await Future.delayed(const Duration(seconds: 5));
       if (response.statusCode == 200) {
         final String taskId = response.data['task_id'];
         var getStatsResponse = await dio.get(
@@ -37,16 +36,17 @@ class UrlsDataSource implements IURLsDataSource {
           final data = getStatsResponse.data["results"]["clusters"];
           print(data);
           List<UrlStatDTO> result = [];
-          for (var document in data) {
-            var keys = document.keys.toList();
-            var values = document.values.toList();
+          var keys = data.keys.toList();
+          var values = data.values.toList();
             for (var i = 0; i < keys.length; i++) {
               result.add(UrlStatDTO.fromJson(keys[i], values[i]));
             }
+            print('result: ${result.toString()}');
+          if (getStatsResponse.data["scatter"] != ""){
+            return {result: getStatsResponse.data["scatter"]};
           }
-          return result;
+          return {result: null};
         } else {
-          print(getStatsResponse.data.toString());
         }
       } else if (response.statusCode == 422) {
         throw Exception('Validation Error');

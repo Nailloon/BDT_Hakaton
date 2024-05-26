@@ -7,8 +7,6 @@ class UrlStatDTO{
   factory UrlStatDTO.fromJson(String key, double value){
     final url = key;
     final isIndexing = value;
-    print(url);
-    print(isIndexing);
 
     return UrlStatDTO(
       id: url,
