@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class CardRow extends StatelessWidget {
   final List<Map<String, String>> cards = cardsData;
-  final List<Map<String, VoidCallback>> buttons = buttonsData;
+  final List<Map<String, Widget>> buttons = buttonsData;
   CardRow({super.key});
 
   @override
@@ -23,7 +23,8 @@ class CardRow extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(Map<String, String> card, context, Map<String, VoidCallback> button) {
+  Widget _buildCard(
+      Map<String, String> card, context, Map<String, Widget> button) {
     return SizedBox(
       width: MediaQuery.of(context).size.width / cards.length,
       child: Padding(
@@ -33,7 +34,12 @@ class CardRow extends StatelessWidget {
             imageName: card.keys.first,
             text: card.values.first,
             buttonText: button.keys.first,
-            action: button.values.first,
+            action: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => button.values.first));
+            },
           ),
         ),
       ),

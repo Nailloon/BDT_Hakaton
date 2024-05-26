@@ -40,5 +40,11 @@ final theme = ThemeData(
         fontWeight: FontWeight.w400,
         letterSpacing: 0.0,
         color: AppColors.white),
+    displayMedium: TextStyle(
+        fontFamily: 'Cuyabra',
+        fontSize: 22,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0.15,
+        color: AppColors.grey),
   ),
 );
