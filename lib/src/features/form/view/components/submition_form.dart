@@ -45,10 +45,6 @@ class _SumbitionFormState extends State<SumbitionForm> {
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Введите URL";
-                } else if (!RegExp(
-                        r'^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$')
-                    .hasMatch(value)) {
-                  return "Введите корректный URl";
                 }
                 return null;
               },
@@ -72,9 +68,10 @@ class _SumbitionFormState extends State<SumbitionForm> {
               onPressed: _formKey.currentState?.validate() == true
                   ? () {
                       _formKey.currentState?.save();
-                      final String url = textEditingController.text;
+                      final List<String> urls = textEditingController.text.split(" ");
+                      debugPrint(urls.toString());
                       context.read<LoadingBloc>().add(
-                          LoadURLsEvent(urls: [url], isNeedPlot: isSubscribed));
+                          LoadURLsEvent(urls: urls, isNeedPlot: isSubscribed));
                       {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Processing Data')),

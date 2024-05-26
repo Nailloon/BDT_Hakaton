@@ -22,7 +22,7 @@ class LoadingBloc extends Bloc<LoadingEvent, LoadingState> {
               event.urls, event.isNeedPlot) ??
           [];
       urlsForApp = urlsForAppDTO.map((e) => e.toModel()).toList();
-      debugPrint("urls:"+ urlsForApp.toString());
+      debugPrint("urls:$urlsForApp");
       emit(LoadingCompleted(urlsForApp, event.isNeedPlot));
     } on Exception catch (e) {
       debugPrint(e.toString());

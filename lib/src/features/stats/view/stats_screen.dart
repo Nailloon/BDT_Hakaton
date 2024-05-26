@@ -7,15 +7,34 @@ import 'package:flutter/material.dart';
 
 class StatsScreen extends StatelessWidget {
   final bool isNeedPlots;
+  final String? imageBase64String;
   final List<UrlStatModel> stats;
   const StatsScreen(
-      {super.key, required this.stats, required this.isNeedPlots});
+      {super.key, required this.stats, required this.isNeedPlots, this.imageBase64String});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children:
-          List.generate(stats.length, (index) => _buildStat(stats[index])),
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Column(
+                  children: List.generate(stats.length, (index) => _buildStat(stats[index])),
+                ),
+              ),
+              (imageBase64String != null)
+                  ? Expanded(
+                      child: (isNeedPlots) ? imageFromBase64String(imageBase64String!) : Image.asset(ImageSources.optim, width: MediaQuery.of(context).size.width,))
+                  : const SizedBox(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -24,9 +43,9 @@ class StatsScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Column(children: [
-          Text("ВАШ САЙТ хороший для индекса"),
-          Text("Его параметр индексирования:" + urlInfo.isIndexing.toString()),
-          isNeedPlots == true ? Image.asset(ImageSources.optim) : imageFromBase64String(urlInfo.base64String)
+          Text("ВАШ САЙТ: ${urlInfo.id}"),
+          Text("Его параметр индексирования:${urlInfo.isIndexing}"),
+          Divider()
         ])
       ],
     );
