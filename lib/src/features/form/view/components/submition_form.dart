@@ -1,5 +1,7 @@
+import 'package:bdt_hakaton/src/features/form/bloc/loading_bloc.dart';
 import 'package:bdt_hakaton/src/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SumbitionForm extends StatefulWidget {
   const SumbitionForm({super.key});
@@ -10,7 +12,7 @@ class SumbitionForm extends StatefulWidget {
 
 class _SumbitionFormState extends State<SumbitionForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController textEditingControllerEmail = TextEditingController();
+  TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class _SumbitionFormState extends State<SumbitionForm> {
         child: Column(
           children: <Widget>[
             TextFormField(
-              controller: textEditingControllerEmail,
+              controller: textEditingController,
               onChanged: (val) {
                 _formKey.currentState?.validate();
                 setState(() {});
@@ -38,15 +40,15 @@ class _SumbitionFormState extends State<SumbitionForm> {
                 hintText: "http or https...",
                 border: const OutlineInputBorder(
                     borderSide: BorderSide(color: AppColors.lightGrey)),
-                    
+
               ),
               validator: (value) {
                 if (value!.isEmpty) {
-                  return "Please Enter url";
+                  return "Введите URL";
                 } else if (!RegExp(
                         r'^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$')
                     .hasMatch(value)) {
-                  return "Please Enter a Valid url";
+                  return "Введите корректный URl";
                 }
                 return null;
               },
@@ -57,6 +59,9 @@ class _SumbitionFormState extends State<SumbitionForm> {
             ElevatedButton(
               onPressed: _formKey.currentState?.validate() == true
                   ? () {
+                      _formKey.currentState?.save();
+                      final String url = textEditingController.text;
+                      context.read<LoadingBloc>().add(LoadURLsEvent([url]));
                       {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Processing Data')),
@@ -72,7 +77,7 @@ class _SumbitionFormState extends State<SumbitionForm> {
                     : MaterialStateProperty.all<Color>(AppColors.lightGrey),
               ),
               child: Text(
-                'Submit',
+                'Отправить на проверку',
                 style: _formKey.currentState?.validate() == true
                     ? Theme.of(context).textTheme.bodyLarge : Theme.of(context).textTheme.displayMedium,
               ),
