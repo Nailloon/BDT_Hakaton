@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class IndexingFragment extends StatelessWidget {
-  final List<String> benefits = benefits_list;
+  final List<String> benefits = benefitsList;
   IndexingFragment({super.key});
 
   @override

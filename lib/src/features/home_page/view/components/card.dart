@@ -1,9 +1,5 @@
-import 'dart:math';
-
 import 'package:bdt_hakaton/src/theme/app_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PurpleCard extends StatelessWidget {
   final String imageName;
@@ -23,7 +19,6 @@ class PurpleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final maxHeight = constraints.maxHeight;
 
         return SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -45,7 +40,7 @@ class PurpleCard extends StatelessWidget {
                       fit: BoxFit.fill,
                     ),
                   ),
-                  SizedBox(height: 30.0),
+                  const SizedBox(height: 30.0),
                   Expanded(
                     child: Text(
                         text,
@@ -56,9 +51,8 @@ class PurpleCard extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: action,
-                      child: Text(buttonText, style: Theme.of(context).textTheme.bodyLarge,),
                       style: ButtonStyle(
-                        minimumSize: MaterialStatePropertyAll<Size>(
+                        minimumSize: const MaterialStatePropertyAll<Size>(
                           Size.fromHeight(32.0),
                         ),
                         backgroundColor:
@@ -66,6 +60,7 @@ class PurpleCard extends StatelessWidget {
                         foregroundColor:
                             MaterialStateProperty.all<Color>(AppColors.black),
                       ),
+                      child: Text(buttonText, style: Theme.of(context).textTheme.bodyLarge,),
                     ),
                   )
                 ],

@@ -1,4 +1,4 @@
-final List<String> benefits_list = [
+final List<String> benefitsList = [
   "Повышенный трафик на сайт",
   "Увеличение потенциальной клиентской базы",
   "Увеличение коэффициента конверсии",
